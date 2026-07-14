@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   Permaculture Sauvage — feuille de style
+   Permasauvage — feuille de style
    Palette nature : vert profond, crème, terre. Aucune
    dépendance externe (pas de polices distantes : RGPD).
    ═══════════════════════════════════════════════════════════ */
@@ -95,10 +95,20 @@ textarea:focus-visible {
 
 .marque {
   margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
   font-family: var(--serif);
   font-size: 1.25rem;
   color: var(--vert-fonce);
   letter-spacing: 0.02em;
+  text-decoration: none;
+}
+
+.marque-logo {
+  width: 3.25rem;
+  height: 3.25rem;
+  flex-shrink: 0;
 }
 
 .navigation {
@@ -414,5 +424,37 @@ textarea:focus {
 
   .entete .contenu {
     flex-direction: column;
+  }
+}
+
+/* ═══════════ ILLUSTRATIONS (page Notre histoire) ═══════════ */
+
+.illustration {
+  margin: 2rem 0;
+}
+
+.illustration img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.illustration figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--vert-fonce);
+  opacity: 0.75;
+}
+
+.illustrations-duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .illustrations-duo {
+    grid-template-columns: 1fr;
   }
 }
