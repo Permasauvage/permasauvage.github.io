@@ -202,23 +202,6 @@ section[id] {
   color: var(--creme);
 }
 
-/* ─────────── Encart Tipeee ─────────── */
-
-/* Le greffon Tipeee fige son cadre à 715 px, ce qui laisse un grand blanc
-   sous la contrepartie (contenu réel mesuré : ~470 px). On le recale ici,
-   avec une marge pour le dépliage « Lire la suite » de la description.
-   Le !important est nécessaire pour passer devant le style posé par le
-   greffon directement sur le cadre. */
-iframe[src*="tipeee"] {
-  height: 590px !important;
-}
-
-@media (max-width: 590px) {
-  iframe[src*="tipeee"] {
-    height: 650px !important;
-  }
-}
-
 /* ─────────── Sections ─────────── */
 
 .section {
