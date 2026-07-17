@@ -300,6 +300,17 @@ textarea:focus {
   border-color: var(--vert);
 }
 
+.formulaire-statut {
+  margin-top: 0.9rem;
+  font-size: 0.95rem;
+  color: var(--vert-fonce);
+  outline: none;
+}
+
+.formulaire-statut:empty {
+  display: none;
+}
+
 .formulaire-ligne {
   display: flex;
   flex-wrap: wrap;

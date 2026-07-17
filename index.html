@@ -235,8 +235,16 @@
           Vous pouvez vous désinscrire à tout moment, en un clic.
         </p>
 
-        <!-- Formulaire intégré Systeme.io : les inscriptions restent sur cette page. -->
-        <script id="form-script-tag-24707646" src="https://permasauvage.systeme.io/public/remote/page/4246495132d23b640818249308f17e9c5d93c062.js"></script>
+        <!-- Formulaire aux couleurs du site : l'adresse part vers la liste Systeme.io
+             de l'association (guichet du tunnel), sans afficher leur bloc générique. -->
+        <form class="formulaire" data-nouvelles data-endpoint="https://permasauvage.systeme.io/public/4246495132d23b640818249308f17e9c5d93c062/show">
+          <div class="champ">
+            <label for="email-nouvelles">Votre adresse email</label>
+            <input type="email" id="email-nouvelles" name="email" required autocomplete="email">
+          </div>
+          <button type="submit" class="bouton bouton-plein">Recevoir les nouvelles</button>
+          <p class="formulaire-statut" role="status" aria-live="polite" tabindex="-1"></p>
+        </form>
 
       </div>
     </section>
@@ -281,6 +289,57 @@
     </section>
 
   </main>
+
+  <script>
+    // Inscription aux nouvelles : envoi direct vers la liste de l'association,
+    // confirmation affichée sur place, sans quitter la page.
+    (function () {
+      var formulaire = document.querySelector("[data-nouvelles]");
+      if (!formulaire) return;
+
+      formulaire.addEventListener("submit", function (evenement) {
+        evenement.preventDefault();
+        var statut = formulaire.querySelector(".formulaire-statut");
+        var bouton = formulaire.querySelector("button[type=submit]");
+        var email = formulaire.querySelector("[name=email]").value.trim();
+
+        bouton.disabled = true;
+        statut.textContent = "Inscription en cours…";
+
+        fetch(formulaire.dataset.endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            optin: {
+              fields: { email: email },
+              timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+              isDesktop: true,
+              checkBoxIds: [],
+              surveysResults: []
+            }
+          })
+        }).then(function (reponse) {
+          if (reponse.ok) {
+            formulaire.reset();
+            statut.textContent = "C'est noté, merci ! Vous recevrez les prochaines nouvelles de l'association.";
+            statut.focus();
+            return;
+          }
+          return reponse.json().then(function (donnees) {
+            var erreur = donnees && donnees.errors && donnees.errors.fields &&
+              donnees.errors.fields.email && donnees.errors.fields.email[0];
+            statut.textContent = erreur || "L'inscription n'a pas abouti. Vérifiez votre adresse et réessayez.";
+            statut.focus();
+          });
+        }).catch(function () {
+          statut.textContent = "L'inscription n'a pas abouti. Vérifiez votre connexion et réessayez.";
+          statut.focus();
+        }).finally(function () {
+          bouton.disabled = false;
+        });
+      });
+    })();
+  </script>
 
   <footer class="pied">
     <div class="contenu">
