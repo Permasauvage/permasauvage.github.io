@@ -474,6 +474,10 @@ textarea:focus {
   gap: 1.25rem;
 }
 
+.histoire-soutien {
+  margin-top: 2rem;
+}
+
 @media (max-width: 640px) {
   .illustrations-duo {
     grid-template-columns: 1fr;
