@@ -3,6 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Garde-fous de sécurité (audit 2026-07-25). Pages statiques : pas d'en-tête
+       HTTP possible, d'où la balise. Ces trois règles ne touchent ni les scripts,
+       ni les styles, ni les images, ni les cadres : le widget de dons et les
+       formulaires continuent de fonctionner à l'identique. Ce qu'elles empêchent :
+       qu'un contenu injecté détourne tous les liens de la page (base-uri),
+       charge un greffon exécutable (object-src), ou renvoie les messages du
+       formulaire de contact vers un autre destinataire (form-action). -->
+  <meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self' https://api.web3forms.com https://*.tipeee.com">
   <title>Merci — Permasauvage</title>
   <meta name="robots" content="noindex">
   <link rel="stylesheet" href="style.css?v=20260712">
